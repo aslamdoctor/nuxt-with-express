@@ -20,5 +20,4 @@ router.put('/articles/:id', articlesController.update)
 // Delete
 router.delete('/articles/:id', articlesController.delete)
 
-
 module.exports = router

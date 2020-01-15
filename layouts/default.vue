@@ -15,7 +15,13 @@
             <nuxt-link to="/articles" class="nav-link" exact-active-class="active">Articles</nuxt-link>
           </li>
           <li class="nav-item">
+            <nuxt-link to="/todos" class="nav-link" exact-active-class="active">Todos</nuxt-link>
+          </li>
+          <li class="nav-item">
             <nuxt-link to="/articles/add" class="nav-link" exact-active-class="active">Add New Article</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/todos/add" class="nav-link" exact-active-class="active">Add New Task</nuxt-link>
           </li>
         </ul>
       </div>

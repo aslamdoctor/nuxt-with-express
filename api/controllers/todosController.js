@@ -1,44 +1,43 @@
-const Article = require('../models/Article');
+const Todo = require('../models/Todo');
 
 // Get all
 module.exports.list = function (req, res, next) {
-  Article.find({}, function(err, articles){
+  Todo.find({}, function(err, todos){
     if(err) {
         return res.status(500).json({
             message: 'Error getting records.'
         });
     }
-    return res.json(articles);
+    return res.json(todos);
   });
 }
 
 // Get one
 module.exports.show = function(req, res) {
   var id = req.params.id;
-  Article.findOne({_id: id}, function(err, article){
+  Todo.findOne({_id: id}, function(err, todo){
       if(err) {
           return res.status(500).json({
               message: 'Error getting record.'
           });
       }
-      if(!article) {
+      if(!todo) {
           return res.status(404).json({
               message: 'No such record'
           });
       }
-      return res.json(article);
+      return res.json(todo);
   });
 }
 
 // Create
 module.exports.create = function(req, res) {
-  var article = new Article({
-      title : req.body.title,
-      author : req.body.author,
-      body : req.body.body,
+  var todo = new Todo({
+      task : req.body.task,
+      status : req.body.status,
   })
 
-  article.save(function(err, article){
+  todo.save(function(err, todo){
       if(err) {
           return res.status(500).json({
               message: 'Error saving record',
@@ -47,7 +46,7 @@ module.exports.create = function(req, res) {
       }
       return res.json({
           message: 'saved',
-          _id: article._id
+          _id: todo._id
       });
   })
 }
@@ -56,35 +55,34 @@ module.exports.create = function(req, res) {
 // Update
 module.exports.update = function(req, res) {
   var id = req.params.id;
-  Article.findOne({_id: id}, function(err, article){
+  Todo.findOne({_id: id}, function(err, todo){
       if(err) {
           return res.status(500).json({
               message: 'Error saving record',
               error: err
           });
       }
-      if(!article) {
+      if(!todo) {
           return res.status(404).json({
               message: 'No such record'
           });
       }
 
-      article.title =  req.body.title ? req.body.title : article.title;
-      article.author =  req.body.author ? req.body.author : article.author;
-      article.body =  req.body.body ? req.body.body : article.body;
+      todo.task =  req.body.task ? req.body.task : todo.task;
+      todo.status =  req.body.status ? req.body.status : todo.status;
 
-      article.save(function(err, article){
+      todo.save(function(err, todo){
           if(err) {
               return res.status(500).json({
                   message: 'Error getting record.'
               });
           }
-          if(!article) {
+          if(!todo) {
               return res.status(404).json({
                   message: 'No such record'
               });
           }
-          return res.json(article);
+          return res.json(todo);
       });
   });
 }
@@ -93,12 +91,12 @@ module.exports.update = function(req, res) {
 // Delete
 module.exports.delete = function(req, res) {
   var id = req.params.id;
-  Article.findByIdAndRemove(id, function(err, article){
+  Todo.findByIdAndRemove(id, function(err, todo){
       if(err) {
           return res.status(500).json({
               message: 'Error getting record.'
           });
       }
-      return res.json(article);
+      return res.json(todo);
   });
 }

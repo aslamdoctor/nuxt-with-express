@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Require & Import API routes
 const articles = require('./routes/articles')
+const todos = require('./routes/todos')
 
 // Use API Routes
 app.use(articles)
+app.use(todos)
 
 // Export the server middleware
 module.exports = {
