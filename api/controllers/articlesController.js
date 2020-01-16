@@ -13,6 +13,7 @@ module.exports.list = function (req, res, next) {
   });
 }
 
+
 // Get one
 module.exports.show = function(req, res) {
   var id = req.params.id;
@@ -30,6 +31,7 @@ module.exports.show = function(req, res) {
       return res.json(article);
   });
 }
+
 
 // Create
 module.exports.create = [
@@ -74,8 +76,6 @@ module.exports.create = [
     })
   }
 ]
-
-
 
 
 // Update

@@ -5,7 +5,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Express Blog',
+    title: 'Express CRUD',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -42,7 +42,38 @@ module.exports = {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/membership/signin',
+            method: 'post',
+            propertyName: 'token'
+          },
+          // logout: true,
+          logout: { url: '/api/membership/logout', method: 'post' },
+          user: {
+            url: '/api/membership/user',
+            method: 'get',
+            propertyName: 'user'
+          }
+        },
+      // tokenRequired: true,
+      // tokenType: 'bearer',
+      }
+    },
+    // redirect: {
+      // login: '/login',
+      // logout: '/',
+      // callback: '/login',
+      // home: '/'
+    // },
+    rewriteRedirects: true,
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

@@ -13,6 +13,7 @@ module.exports.list = function (req, res, next) {
   });
 }
 
+
 // Get one
 module.exports.show = function(req, res) {
   var id = req.params.id;
@@ -49,11 +50,13 @@ module.exports.create = [
       return res.status(422).json({ errors: errors.mapped() });
     }
 
+    // initialize record
     var todo = new Todo({
         task : req.body.task,
         status : req.body.status,
     })
 
+    // save record
     todo.save(function(err, todo){
         if(err) {
             return res.status(500).json({
@@ -104,9 +107,11 @@ module.exports.update = [
             });
         }
 
+        // initialize record
         todo.task =  req.body.task ? req.body.task : todo.task;
         todo.status =  req.body.status ? req.body.status : todo.status;
 
+        // save record
         todo.save(function(err, todo){
             if(err) {
                 return res.status(500).json({
@@ -123,7 +128,6 @@ module.exports.update = [
     });
   }
 ]
-
 
 
 // Delete

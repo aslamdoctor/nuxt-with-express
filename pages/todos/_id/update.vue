@@ -72,7 +72,7 @@ export default {
           console.log(response)
 
           if(response.data._id){
-            this.$router.push('/todos/' + this.$route.params.id)
+            this.$router.push({ name:'todos-id', params:{ updated:'yes', id: this.$route.params.id } })
           }
         })
         .catch( (error) => {

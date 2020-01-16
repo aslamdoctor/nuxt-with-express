@@ -39,7 +39,8 @@
             </div>
           </div>
 
-          <input type="submit" value="Submit" class="btn btn-primary">
+          <input type="submit" value="Submit" class="btn btn-primary mr-3">
+          <nuxt-link to="/articles" class="btn btn-secondary mr-3">Cancel</nuxt-link>
 
         </form>
       </div>
@@ -69,7 +70,7 @@ export default {
           console.log(response)
 
           if(response.data._id){
-            this.$router.push('/articles')
+            this.$router.push({ name:'articles', params:{ created:'yes' } })
           }
         })
         .catch( (error) => {

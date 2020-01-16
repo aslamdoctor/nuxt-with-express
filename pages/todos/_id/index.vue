@@ -4,6 +4,9 @@
 
     <hr>
 
+    <div class="alert alert-success"
+      v-if="$route.params.updated=='yes'">Record updated successfully</div>
+
     <h2>{{ todo.task }}</h2>
 
     <h6>Status: {{ status }}</h6>
@@ -45,7 +48,7 @@ export default {
         this.$axios.delete('/api/todos/' + this.$route.params.id)
           .then((response) => {
             if(response.data._id){
-              this.$router.push('/todos')
+              this.$router.push({ name:'todos', params:{ deleted:'yes' } })
             }
           })
           .catch( (error) => {

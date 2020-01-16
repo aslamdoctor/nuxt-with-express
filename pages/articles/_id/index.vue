@@ -4,6 +4,9 @@
 
     <hr>
 
+    <div class="alert alert-success"
+      v-if="$route.params.updated=='yes'">Record updated successfully</div>
+
     <h2>{{ article.title }}</h2>
 
     <h6>By {{ article.author }}</h6>
@@ -36,7 +39,7 @@ export default {
         this.$axios.delete('/api/articles/' + this.$route.params.id)
           .then((response) => {
             if(response.data._id){
-              this.$router.push('/articles')
+              this.$router.push({ name:'articles', params:{ deleted:'yes' } })
             }
           })
           .catch( (error) => {

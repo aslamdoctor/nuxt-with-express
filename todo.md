@@ -2,5 +2,7 @@
 
 - [x] CRUD With Express API
 - [x] Form Validations
-- [ ] Sessions Management
+- [x] Notifications
 - [ ] Authentication
+- [ ] Module Relationships
+- [ ] File Upload

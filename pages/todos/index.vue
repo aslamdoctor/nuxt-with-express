@@ -1,7 +1,15 @@
 <template>
   <div>
-    <h1>Todos</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>Todos</h1>
+      <nuxt-link to="/todos/add" class="btn btn-success">Add New</nuxt-link>
+    </div>
     <hr>
+
+    <div class="alert alert-success"
+      v-if="$route.params.created=='yes'">Record added successfully</div>
+    <div class="alert alert-success"
+      v-if="$route.params.deleted=='yes'">Record deleted successfully</div>
 
     <div class="list-group"
       v-if="todos.length">

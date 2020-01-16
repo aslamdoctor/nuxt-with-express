@@ -87,7 +87,7 @@ export default {
           console.log(response)
 
           if(response.data._id){
-            this.$router.push('/articles/' + this.$route.params.id)
+            this.$router.push({ name:'articles-id', params:{ updated:'yes', id: this.$route.params.id } })
           }
         })
         .catch( (error) => {

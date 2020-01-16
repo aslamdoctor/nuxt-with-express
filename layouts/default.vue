@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <nuxt-link to="/" class="navbar-brand">Express Blog</nuxt-link>
+      <nuxt-link to="/" class="navbar-brand">Express CRUD</nuxt-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -16,12 +16,6 @@
           </li>
           <li class="nav-item">
             <nuxt-link to="/todos" class="nav-link" exact-active-class="active">Todos</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/articles/add" class="nav-link" exact-active-class="active">Add New Article</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/todos/add" class="nav-link" exact-active-class="active">Add New Task</nuxt-link>
           </li>
         </ul>
       </div>

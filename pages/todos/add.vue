@@ -32,7 +32,8 @@
             </div>
           </div>
 
-          <input type="submit" value="Submit" class="btn btn-primary">
+          <input type="submit" value="Submit" class="btn btn-primary mr-3">
+          <nuxt-link to="/todos" class="btn btn-secondary mr-3">Cancel</nuxt-link>
 
         </form>
       </div>
@@ -60,7 +61,7 @@ export default {
           console.log(response)
 
           if(response.data._id){
-            this.$router.push('/todos')
+            this.$router.push({ name:'todos', params:{ created:'yes' } })
           }
         })
         .catch( (error) => {
