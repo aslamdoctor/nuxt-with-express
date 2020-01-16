@@ -71,39 +71,59 @@ module.exports.create = [
 
 
 // Update
-module.exports.update = function(req, res) {
-  var id = req.params.id;
-  Todo.findOne({_id: id}, function(err, todo){
-      if(err) {
-          return res.status(500).json({
-              message: 'Error saving record',
-              error: err
-          });
+module.exports.update = [
+  // validation rules
+  validator.body('task', 'Please enter Task').isLength({ min: 1 }),
+  validator.body('task').custom( (value, {req}) => {
+    return Todo.find({ task:value, _id:{ $ne: req.params.id } })
+      .then( todo => {
+      if (todo.length) {
+        return Promise.reject('Task already in use');
       }
-      if(!todo) {
-          return res.status(404).json({
-              message: 'No such record'
-          });
-      }
+    })
+  }),
 
-      todo.task =  req.body.task ? req.body.task : todo.task;
-      todo.status =  req.body.status ? req.body.status : todo.status;
+  function(req, res) {
+    // throw validation errors
+    const errors = validator.validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.mapped() });
+    }
 
-      todo.save(function(err, todo){
-          if(err) {
-              return res.status(500).json({
-                  message: 'Error getting record.'
-              });
-          }
-          if(!todo) {
-              return res.status(404).json({
-                  message: 'No such record'
-              });
-          }
-          return res.json(todo);
-      });
-  });
-}
+    var id = req.params.id;
+    Todo.findOne({_id: id}, function(err, todo){
+        if(err) {
+            return res.status(500).json({
+                message: 'Error saving record',
+                error: err
+            });
+        }
+        if(!todo) {
+            return res.status(404).json({
+                message: 'No such record'
+            });
+        }
+
+        todo.task =  req.body.task ? req.body.task : todo.task;
+        todo.status =  req.body.status ? req.body.status : todo.status;
+
+        todo.save(function(err, todo){
+            if(err) {
+                return res.status(500).json({
+                    message: 'Error getting record.'
+                });
+            }
+            if(!todo) {
+                return res.status(404).json({
+                    message: 'No such record'
+                });
+            }
+            return res.json(todo);
+        });
+    });
+  }
+]
+
 
 
 // Delete

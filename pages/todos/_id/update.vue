@@ -12,7 +12,11 @@
           <div class="form-group">
             <label for="">Task</label>
             <input type="text" class="form-control"
+              :class="{ 'is-invalid': errors && errors.task }"
               v-model="task">
+            <div class="invalid-feedback" v-if="errors && errors.task">
+              {{ errors.task.msg }}
+            </div>
           </div>
 
           <div class="form-group">
@@ -43,6 +47,7 @@ export default {
 
   data(){
     return{
+      errors:null,
       task:null,
       status:null,
     }
@@ -72,6 +77,9 @@ export default {
         })
         .catch( (error) => {
           console.log(error)
+          if(error.response.data.errors){
+            this.errors = error.response.data.errors
+          }
         });
     }
   }
