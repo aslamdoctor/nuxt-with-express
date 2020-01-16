@@ -12,19 +12,31 @@
           <div class="form-group">
             <label for="">Title</label>
             <input type="text" class="form-control"
+              :class="{ 'is-invalid': errors && errors.title }"
               v-model="title">
+            <div class="invalid-feedback" v-if="errors && errors.title">
+              {{ errors.title.msg }}
+            </div>
           </div>
 
           <div class="form-group">
             <label for="">Author</label>
             <input type="text" class="form-control"
+              :class="{ 'is-invalid': errors && errors.author }"
               v-model="author">
+            <div class="invalid-feedback" v-if="errors && errors.author">
+              {{ errors.author.msg }}
+            </div>
           </div>
 
           <div class="form-group">
             <label for="">Body</label>
             <textarea cols="30" rows="4" class="form-control"
+              :class="{ 'is-invalid': errors && errors.body }"
               v-model="body"></textarea>
+            <div class="invalid-feedback" v-if="errors && errors.body">
+              {{ errors.body.msg }}
+            </div>
           </div>
 
           <input type="submit" value="Submit" class="btn btn-primary mr-3">
@@ -47,6 +59,7 @@ export default {
 
   data(){
     return{
+      errors:null,
       title:null,
       author:null,
       body:null
@@ -79,6 +92,9 @@ export default {
         })
         .catch( (error) => {
           console.log(error)
+          if(error.response.data.errors){
+            this.errors = error.response.data.errors
+          }
         });
     }
   }

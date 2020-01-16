@@ -6,7 +6,7 @@
 
     <h2>{{ todo.task }}</h2>
 
-    <h6>Status: {{ todo.status }}</h6>
+    <h6>Status: {{ status }}</h6>
 
     <hr>
     <div class="d-flex justify-content-between">
@@ -25,6 +25,17 @@ export default {
     const {data} = await context.$axios.get('/api/todos/' + context.route.params.id)
     return {
       todo : data
+    }
+  },
+
+  computed:{
+    status(){
+      if(this.todo.status==true){
+        return 'Completed'
+      }
+      else{
+        return 'Not Completed'
+      }
     }
   },
 

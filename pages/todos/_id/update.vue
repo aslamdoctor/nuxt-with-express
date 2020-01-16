@@ -17,8 +17,10 @@
 
           <div class="form-group">
             <label for="">Status</label>
-            <input type="text" class="form-control"
-              v-model="status">
+            <select class="form-control" v-model="status">
+              <option value="true">Completed</option>
+              <option value="false">Not Completed</option>
+            </select>
           </div>
 
           <input type="submit" value="Submit" class="btn btn-primary mr-3">

@@ -12,13 +12,24 @@
           <div class="form-group">
             <label for="">Task</label>
             <input type="text" class="form-control"
+              :class="{ 'is-invalid': errors && errors.task }"
               v-model="task">
+            <div class="invalid-feedback" v-if="errors && errors.task">
+              {{ errors.task.msg }}
+            </div>
           </div>
 
           <div class="form-group">
             <label for="">Status</label>
-            <input type="text" class="form-control"
+            <select class="form-control"
+              :class="{ 'is-invalid': errors && errors.status }"
               v-model="status">
+              <option value="true">Completed</option>
+              <option value="false">Not Completed</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors && errors.status">
+              {{ errors.status.msg }}
+            </div>
           </div>
 
           <input type="submit" value="Submit" class="btn btn-primary">
@@ -33,8 +44,9 @@
 export default {
   data(){
     return{
+      errors:null,
       task:null,
-      status:0
+      status:false,
     }
   },
 
@@ -53,6 +65,9 @@ export default {
         })
         .catch( (error) => {
           console.log(error)
+          if(error.response.data.errors){
+            this.errors = error.response.data.errors
+          }
         });
     }
   }

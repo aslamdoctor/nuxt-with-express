@@ -10,7 +10,8 @@
         :to="'/todos/' + todo._id"
         v-for="todo in todos"
         :key="todo._id">
-        {{ todo.task }}
+        <del v-if="todo.status == true">{{ todo.task }}</del>
+        <template v-else>{{ todo.task }}</template>
       </nuxt-link>
     </div>
 

@@ -1,4 +1,5 @@
 const Todo = require('../models/Todo');
+const validator = require('express-validator');
 
 // Get all
 module.exports.list = function (req, res, next) {
@@ -31,25 +32,42 @@ module.exports.show = function(req, res) {
 }
 
 // Create
-module.exports.create = function(req, res) {
-  var todo = new Todo({
-      task : req.body.task,
-      status : req.body.status,
-  })
-
-  todo.save(function(err, todo){
-      if(err) {
-          return res.status(500).json({
-              message: 'Error saving record',
-              error: err
-          });
+module.exports.create = [
+  // validations rules
+  validator.body('task', 'Please enter Task').isLength({ min: 1 }),
+  validator.body('task').custom(value => {
+    return Todo.find({task:value}).then(todo => {
+      if (todo.length) {
+        return Promise.reject('Task already in use');
       }
-      return res.json({
-          message: 'saved',
-          _id: todo._id
-      });
-  })
-}
+    })
+  }),
+  function(req, res) {
+    // throw validation errors
+    const errors = validator.validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.mapped() });
+    }
+
+    var todo = new Todo({
+        task : req.body.task,
+        status : req.body.status,
+    })
+
+    todo.save(function(err, todo){
+        if(err) {
+            return res.status(500).json({
+                message: 'Error saving record',
+                error: err
+            });
+        }
+        return res.json({
+            message: 'saved',
+            _id: todo._id
+        });
+    })
+  }
+]
 
 
 // Update
