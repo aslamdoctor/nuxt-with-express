@@ -1,6 +1,15 @@
 # nuxt-with-express
 
-> My primo Nuxt.js project
+My Boilerplate CRUD project built with [**Express**](https://expressjs.com/) as server side language, [**NuxtJS**](https://nuxtjs.org/) as frontend framework and [**Mongodb**](https://www.mongodb.com/) as database server.
+
+## Features Implemented
+
+1. CRUD With Express API
+2. Form Validations using [**express-validator**](https://express-validator.github.io/docs/)
+3. Simple notifications for crud actions
+4. Authentication using [**jwtwebtoken**](https://www.npmjs.com/package/jsonwebtoken) and [**@nuxtjs/auth**](https://auth.nuxtjs.org/) module.
+
+
 
 ## Build Setup
 
