@@ -37,8 +37,8 @@ module.exports.create = [
   // validations rules
   validator.body('task', 'Please enter Task').isLength({ min: 1 }),
   validator.body('task').custom(value => {
-    return Todo.find({task:value}).then(todo => {
-      if (todo.length) {
+    return Todo.findOne({task:value}).then(todo => {
+      if (todo !== null) {
         return Promise.reject('Task already in use');
       }
     })
@@ -78,9 +78,9 @@ module.exports.update = [
   // validation rules
   validator.body('task', 'Please enter Task').isLength({ min: 1 }),
   validator.body('task').custom( (value, {req}) => {
-    return Todo.find({ task:value, _id:{ $ne: req.params.id } })
+    return Todo.findOne({ task:value, _id:{ $ne: req.params.id } })
       .then( todo => {
-      if (todo.length) {
+      if (todo !== null) {
         return Promise.reject('Task already in use');
       }
     })

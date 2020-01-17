@@ -38,8 +38,8 @@ module.exports.create = [
   // validations rules
   validator.body('title', 'Please enter Article Title').isLength({ min: 1 }),
   validator.body('title').custom(value => {
-    return Article.find({title:value}).then(article => {
-      if (article.length) {
+    return Article.findOne({title:value}).then(article => {
+      if (article !== null) {
         return Promise.reject('Title already in use');
       }
     })
@@ -83,9 +83,9 @@ module.exports.update = [
   // validation rules
   validator.body('title', 'Please enter Article Title').isLength({ min: 1 }),
   validator.body('title').custom( (value, {req}) => {
-    return Article.find({ title:value, _id:{ $ne: req.params.id } })
+    return Article.findOne({ title:value, _id:{ $ne: req.params.id } })
       .then( article => {
-      if (article.length) {
+      if (article !== null) {
         return Promise.reject('Title already in use');
       }
     })

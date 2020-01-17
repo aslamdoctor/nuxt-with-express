@@ -50,6 +50,8 @@
 
 <script>
 export default {
+  middleware: 'auth',
+
   data(){
     return{
       errors:null,

@@ -38,6 +38,8 @@
 
 <script>
 export default {
+  middleware: 'auth',
+
   async asyncData(context){
     const {data} = await context.$axios.get('/api/todos/' + context.route.params.id)
     return {
