@@ -1,3 +1,4 @@
+const config = require('../config')
 const User = require('../models/User')
 const validator = require('express-validator')
 const jwt = require('jsonwebtoken');
@@ -91,7 +92,7 @@ module.exports.login = [
                 email: user.email,
                 full_name: user.full_name
               },
-              token: jwt.sign({_id: user._id, email: user.email, full_name: user.full_name}, 'mysecret') // generate JWT token here
+              token: jwt.sign({_id: user._id, email: user.email, full_name: user.full_name}, config.authSecret) // generate JWT token here
             });
           }
           else{
@@ -106,10 +107,20 @@ module.exports.login = [
 
 // Get User
 module.exports.user = function(req, res) {
-  var token = req.headers.authorization.replace(/^Bearer\s/, '')
-  jwt.verify(token, 'mysecret', function(err, decoded) {
-    return res.json({ user: decoded })
-  })
+  var token = req.headers.authorization
+  if (token) {
+    // verifies secret and checks if the token is expired
+    jwt.verify(token.replace(/^Bearer\s/, ''), config.authSecret, function(err, decoded) {
+      if (err) {
+        return res.json({ message: 'unauthorized' });
+      } else {
+        return res.json({ user: decoded })
+      }
+    });
+  }
+  else{
+    return res.json({ message: 'unauthorized' });
+  }
 }
 
 

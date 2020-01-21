@@ -77,7 +77,6 @@ module.exports.create = [
   }
 ]
 
-
 // Update
 module.exports.update = [
   // validation rules

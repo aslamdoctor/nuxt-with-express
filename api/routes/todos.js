@@ -1,3 +1,4 @@
+const config = require('../config')
 const { Router } = require('express')
 
 const router = Router()
@@ -12,12 +13,12 @@ router.get('/todos', todosController.list)
 router.get('/todos/:id', todosController.show)
 
 // Create
-router.post('/todos', todosController.create)
+router.post('/todos', config.isAuthenticated, todosController.create)
 
 // Update
-router.put('/todos/:id', todosController.update)
+router.put('/todos/:id', config.isAuthenticated, todosController.update)
 
 // Delete
-router.delete('/todos/:id', todosController.delete)
+router.delete('/todos/:id', config.isAuthenticated, todosController.delete)
 
 module.exports = router
