@@ -14,9 +14,6 @@
           <li class="nav-item">
             <nuxt-link to="/articles" class="nav-link" exact-active-class="active">Articles</nuxt-link>
           </li>
-          <li class="nav-item">
-            <nuxt-link to="/todos" class="nav-link" exact-active-class="active">Todos</nuxt-link>
-          </li>
         </ul>
 
         <ul class="navbar-nav"

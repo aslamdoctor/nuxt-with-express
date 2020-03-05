@@ -5,5 +5,6 @@
 - [x] Notifications
 - [x] Authentication
 - [x] Add security to API routes
+- [ ] Add CORS security
 - [ ] Module Relationships
 - [ ] File Upload
