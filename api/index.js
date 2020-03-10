@@ -1,4 +1,3 @@
-const config = require('./config')
 const express = require('express')
 const db = require('./db')
 
