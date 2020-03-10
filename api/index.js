@@ -1,15 +1,15 @@
 const config = require('./config')
 const express = require('express')
-const bodyParser = require('body-parser');
 const db = require('./db')
 
 
 // Create express instnace
 const app = express()
 
-// Init body-parser
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// Init body-parser options (inbuilt with express)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // Require & Import API routes
 const users = require('./routes/users')
